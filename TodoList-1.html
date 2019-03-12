@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TODOリスト1</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome-animation/0.0.10/font-awesome-animation.css" type="text/css" media="all" />
+  <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+  <style>
+    .container {
+      margin: 0 auto;
+      max-width: 480px;
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar has-background-success">
+    <div class="navbar-brand navbar-item has-text-white" style="margin: 10px auto">
+        	<i class="fas fa-star faa-flash animated"></i><p style="font-size:25px;">純100%のJavaScriptで作ったTODOリスト</p>
+    </div>
+  </nav>
+
+  <section class="section">
+    <div  class="container">
+      <div class="field is-grouped">
+        <p class="control is-expanded">
+          <input id="task" class="input" type="text" placeholder="ここにやること入れる">
+        </p>
+        <p class="control">
+          <a id="add" class="button is-success">追加</a>
+        </p>
+      </div>
+      <nav class="panel">
+        <div id="todos"></div>
+      </nav>
+    </div>
+  </section>
+
+
+<script>
+// 諸々変数はここで準備
+ var todos = [];
+ var btn = document.getElementById("add");
+ var target = document.getElementById("todos");
+ var buttons = [];
+
+// タスクを追加/削除したときにレコードを表示する
+ function show(){
+       var html = '';
+       for (var i=0; i<todos.length; i++) {
+           html += '<a class="panel-block"><span class="panel-icon remove" id="' + i + '"><i class="fas fa-trash-alt" aria-hidden="true"></i></span>' + todos[i] + '</a>';
+         }
+       // ここでタスクを表示する
+       target.innerHTML = html;
+
+
+       // 追加したタスクのclass名(remove)から取得する
+       buttons = document.getElementsByClassName('remove');
+       for (var i=0; i < buttons.length; i++) {
+           buttons[i].addEventListener('click', remove);
+       };
+ }
+
+// 削除ボタンが押されたら発動
+ function remove(){
+      var id = this.getAttribute('id');
+      todos.splice(id, 1);
+      show();
+ }
+
+// タスク追加ボタンが押されたら発動
+ btn.addEventListener('click', function() {
+       todos.push(document.getElementById('task').value);
+       document.getElementById('task').value = '';
+       show();
+ },false);
+</script>
+
+ </body>
+</html>
